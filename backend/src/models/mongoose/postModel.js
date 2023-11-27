@@ -2,6 +2,7 @@ const { Schema, model, Types } = require("mongoose");
 
 const PostSchema = new Schema(
   {
+    autor: { type: Types.ObjectId, Ref: "usuario" },
     title: {
       type: String,
       required: true,
@@ -10,11 +11,11 @@ const PostSchema = new Schema(
     },
     description: {
       type: String,
+      required: true,
       minLength: 3,
       maxLength: 500,
     },
     imageURL: String,
-    autor: { type: Types.ObjectId, Ref: "usuario" },
   },
   { timestamps: true }
 );

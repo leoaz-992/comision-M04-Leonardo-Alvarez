@@ -19,7 +19,7 @@ PostsController.getAllPosts = async (req, res) => {
 //get posts de un autor
 PostsController.getAllPostsOfAutor = async (req, res) => {
   try {
-    const autorId = req.params.autorId; // o como sea que obtengas el ID del autor
+    const autorId = req.params.autorId;
     const listaPosts = await PostModel.find({ autor: autorId });
 
     return res.json(listaPosts);
@@ -59,10 +59,10 @@ PostsController.createPost = async (req, res) => {
     const { title, description, imageURL, autor } = req.body;
 
     const newPost = new PostModel({
+      autor: autor,
       title: title,
       description: description,
       imageURL: imageURL,
-      autor: autor,
     });
 
     await newPost.save();
