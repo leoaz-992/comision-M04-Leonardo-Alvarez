@@ -2,10 +2,10 @@ const CommentModel = require("../../models/mongoose/comentarioModel.js");
 
 const CommentsController = {};
 
-// Ver ListComments de un post
-CommentsController.verCommentsPorPost = async (req, res) => {
+// get ListComments de un post
+CommentsController.getCommentsOfPost = async (req, res) => {
   try {
-    const postId = req.params.postId; // o como sea que obtengas el ID del autor
+    const postId = req.params.postId;
     const listaComments = await CommentModel.find({ post: postId });
 
     return res.json(listaComments);
@@ -17,8 +17,8 @@ CommentsController.verCommentsPorPost = async (req, res) => {
   }
 };
 
-//ver Comments de un autor
-CommentsController.verCommentsPorAutor = async (req, res) => {
+//get Comments de un autor
+CommentsController.getCommentsOfAutor = async (req, res) => {
   try {
     const autorId = req.params.autorId; // o como sea que obtengas el ID del autor
     const listaComments = await CommentModel.find({ autor: autorId });
@@ -32,8 +32,8 @@ CommentsController.verCommentsPorAutor = async (req, res) => {
   }
 };
 
-// Ver Comment
-CommentsController.verComment = async (req, res) => {
+// get Comment
+CommentsController.getComment = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -55,34 +55,34 @@ CommentsController.verComment = async (req, res) => {
 };
 
 // Crear Comment
-CommentsController.crearComment = async (req, res) => {
+CommentsController.createComment = async (req, res) => {
   try {
-    const { description, post, autor } = req.body;
+    const { comment, post, autor } = req.body;
 
     const newComment = new CommentModel({
       post: post,
-      description: description,
+      comment: comment,
       autor: autor,
     });
 
     await newComment.save();
 
-    return res.json({ mensaje: "Comment creado con éxito" });
+    return res.json({ mensaje: "comentario creado con éxito" });
   } catch (error) {
     return res.status(500).json({
-      mensaje: "Ocurrió un error interno al intentar crear el Comment",
+      mensaje: "Ocurrió un error interno al intentar crear el comentario.",
       error: error,
     });
   }
 };
 
 // Editar Comment
-CommentsController.editarComment = async (req, res) => {
+CommentsController.editComment = async (req, res) => {
   try {
-    const { id, description } = req.body;
+    const { id, comment } = req.body;
 
     await CommentModel.findByIdAndUpdate(id, {
-      description: description,
+      comment: comment,
     });
 
     return res.json({ mensaje: "Comment actualizado con éxito" });
@@ -95,7 +95,7 @@ CommentsController.editarComment = async (req, res) => {
 };
 
 // Eliminar Comment
-CommentsController.eliminarComment = async (req, res) => {
+CommentsController.deleteComment = async (req, res) => {
   try {
     const { id } = req.body;
 
@@ -104,7 +104,7 @@ CommentsController.eliminarComment = async (req, res) => {
     return res.json({ mensaje: "Comment eliminado con éxito" });
   } catch (error) {
     return res.status(500).json({
-      mensaje: "Ocurrió un error interno al intentar eliminar el Comment",
+      mensaje: "Ocurrió un error interno al intentar eliminar el comentario.",
       error: error,
     });
   }

@@ -2,8 +2,8 @@ const PostModel = require("../../models/mongoose/postModel.js");
 
 const PostsController = {};
 
-// Ver Listposts
-PostsController.verPosts = async (req, res) => {
+// get Listposts
+PostsController.getAllPosts = async (req, res) => {
   try {
     const listaPosts = await PostModel.find();
 
@@ -16,8 +16,8 @@ PostsController.verPosts = async (req, res) => {
   }
 };
 
-//ver posts de un autor
-PostsController.verPostsPorAutor = async (req, res) => {
+//get posts de un autor
+PostsController.getAllPostsOfAutor = async (req, res) => {
   try {
     const autorId = req.params.autorId; // o como sea que obtengas el ID del autor
     const listaPosts = await PostModel.find({ autor: autorId });
@@ -31,8 +31,8 @@ PostsController.verPostsPorAutor = async (req, res) => {
   }
 };
 
-// Ver post
-PostsController.verpost = async (req, res) => {
+// get post
+PostsController.getPost = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -54,7 +54,7 @@ PostsController.verpost = async (req, res) => {
 };
 
 // Crear Post
-PostsController.crearPost = async (req, res) => {
+PostsController.createPost = async (req, res) => {
   try {
     const { title, description, imageURL, autor } = req.body;
 
@@ -77,7 +77,7 @@ PostsController.crearPost = async (req, res) => {
 };
 
 // Editar Post
-PostsController.editarPost = async (req, res) => {
+PostsController.editPost = async (req, res) => {
   try {
     const { id, title, description, imageURL } = req.body;
 
@@ -97,7 +97,7 @@ PostsController.editarPost = async (req, res) => {
 };
 
 // Eliminar Post
-PostsController.eliminarPost = async (req, res) => {
+PostsController.deletePost = async (req, res) => {
   try {
     const { id } = req.body;
 

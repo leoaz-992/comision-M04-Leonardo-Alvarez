@@ -63,32 +63,6 @@ UsuariosController.getOneUserforId = async (req, res) => {
   }
 };
 
-// Crear usuario
-UsuariosController.createUser = async (req, res) => {
-  try {
-    const { firstname, lastname, username, email, password, avatarURL } =
-      req.body;
-
-    const nuevoUsuario = new UsuarioModel({
-      firstName: firstname,
-      lastName: lastname,
-      userName: username,
-      email: email,
-      password: password,
-      avatarURL: avatarURL,
-    });
-
-    await nuevoUsuario.save();
-
-    return res.json({ mensaje: "Usuario creado con éxito" });
-  } catch (error) {
-    return res.status(500).json({
-      mensaje: "Ocurrió un error interno al intentar crear el usuario",
-      error: error,
-    });
-  }
-};
-
 // Editar usuario
 UsuariosController.editUser = async (req, res) => {
   try {

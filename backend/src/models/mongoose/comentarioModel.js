@@ -2,7 +2,7 @@ const { Schema, model, Types } = require("mongoose");
 
 const ComentarioSchema = new Schema(
   {
-    description: {
+    comment: {
       type: String,
       required: true,
       minLength: 3,
