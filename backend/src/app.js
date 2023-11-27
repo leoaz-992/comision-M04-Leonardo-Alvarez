@@ -1,5 +1,6 @@
 require("dotenv").config();
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -16,6 +17,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 app.use(fileUpload());
 
 // Rutas

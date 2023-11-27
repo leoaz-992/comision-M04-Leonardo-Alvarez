@@ -16,7 +16,7 @@ AutenticacionController.registrarUsuario = async (req, res) => {
     const userFound = await User.findOne({ email });
     if (userFound) {
       return res.status(409).json({
-        message: "The email is already in use",
+        message: "El email ya fue registrado con otro usuario.",
       });
     }
     //encripta la contraseña
