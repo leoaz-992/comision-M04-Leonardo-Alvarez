@@ -5,6 +5,8 @@ const {
 } = require("../middlewares/validation.middleware.js");
 const {
   commentFieldValidations,
+  editcommentFieldValidations,
+  deletecommentValidation,
 } = require("../middlewares/comment.middleware.js");
 const auth = require("../middlewares/auth.middleware.js");
 const {
@@ -23,14 +25,27 @@ commentRoutes.get(
 );
 //crea un comentario
 commentRoutes.post(
-  "/create-comment",auth,
+  "/create-comment",
+  auth,
   commentFieldValidations,
   validErrorManager,
   createComment
 );
 //edita un comentario
-commentRoutes.put("/edit-comments",auth, editComment);
+commentRoutes.put(
+  "/edit-comments",
+  auth,
+  editcommentFieldValidations,
+  validErrorManager,
+  editComment
+);
 //borra un comentario
-commentRoutes.delete("/delete-comments",auth, deleteComment);
+commentRoutes.delete(
+  "/delete-comments",
+  auth,
+  deletecommentValidation,
+  validErrorManager,
+  deleteComment
+);
 
 module.exports = commentRoutes;

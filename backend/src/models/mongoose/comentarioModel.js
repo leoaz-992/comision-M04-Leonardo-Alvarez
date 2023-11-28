@@ -8,8 +8,8 @@ const ComentarioSchema = new Schema(
       minLength: 3,
       maxLength: 500,
     },
-    post: { type: Types.ObjectId, Ref: "post" },
-    autor: { type: Types.ObjectId, Ref: "usuario" },
+    post: { type: Types.ObjectId, Ref: "post", required: true },
+    autor: { type: Types.ObjectId, Ref: "usuario", required: true },
   },
   { timestamps: true }
 );

@@ -1,10 +1,13 @@
 const postRoutes = require("express").Router();
 const {
   validErrorManager,
-
   paramsValidator,
 } = require("../middlewares/validation.middleware.js");
-const { postFieldValidations } = require("../middlewares/post.middleware.js");
+const {
+  postFieldValidations,
+  editPostFieldValidations,
+  deletePostValidation,
+} = require("../middlewares/post.middleware.js");
 const auth = require("../middlewares/auth.middleware.js");
 
 const {
@@ -15,8 +18,9 @@ const {
   editPost,
   deletePost,
 } = require("../controllers/mongoose/PostsController.js");
+
 //obtiene todo los post
-postRoutes.get("/posts", getAllPosts);
+postRoutes.get("/", getAllPosts);
 
 //obtiene un post por su id
 postRoutes.get("/post/:postId", paramsValidator, validErrorManager, getPost);
@@ -30,16 +34,30 @@ postRoutes.get(
 );
 
 //crea un nuevo post
-postRoutes.post("/post",auth, postFieldValidations, validErrorManager, createPost);
+postRoutes.post(
+  "/post",
+  auth,
+  postFieldValidations,
+  validErrorManager,
+  createPost
+);
 
 //edita un post
 postRoutes.put(
-  "/post",auth,
-  /* falta validar el editar post */ validErrorManager,
+  "/post",
+  auth,
+  editPostFieldValidations,
+  validErrorManager,
   editPost
 );
 
 //elimina un post
-postRoutes.delete("/post",auth, deletePost);
+postRoutes.delete(
+  "/post",
+  auth,
+  deletePostValidation,
+  validErrorManager,
+  deletePost
+);
 
 module.exports = postRoutes;
