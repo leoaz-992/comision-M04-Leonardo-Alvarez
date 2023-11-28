@@ -40,7 +40,13 @@ PostsController.getPost = async (req, res) => {
 
     const postEncontrado = await PostModel.findById(postId);
 
-    return res.json(postEncontrado);
+    return res.json({
+      _id: postEncontrado._id,
+      title: postEncontrado.title,
+      description: postEncontrado.description,
+      imageURL: postEncontrado.imageURL,
+      createdAt: postEncontrado.createdAt,
+    });
   } catch (error) {
     let mensaje = "Ocurrió un error interno al intentar obtener el post";
 
