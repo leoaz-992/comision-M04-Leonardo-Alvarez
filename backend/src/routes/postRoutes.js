@@ -5,6 +5,7 @@ const {
   paramsValidator,
 } = require("../middlewares/validation.middleware.js");
 const { postFieldValidations } = require("../middlewares/post.middleware.js");
+const auth = require("../middlewares/auth.middleware.js");
 
 const {
   getAllPosts,
@@ -18,27 +19,27 @@ const {
 postRoutes.get("/posts", getAllPosts);
 
 //obtiene un post por su id
-postRoutes.get("/post/:id", paramsValidator, validErrorManager, getPost);
+postRoutes.get("/post/:postId", paramsValidator, validErrorManager, getPost);
 
 //obtiene todos los post de un autor
 postRoutes.get(
-  "/:autorId/posts",
+  "/:username/posts",
   paramsValidator,
   validErrorManager,
   getAllPostsOfAutor
 );
 
 //crea un nuevo post
-postRoutes.post("/post", postFieldValidations, validErrorManager, createPost);
+postRoutes.post("/post",auth, postFieldValidations, validErrorManager, createPost);
 
 //edita un post
 postRoutes.put(
-  "/post",
+  "/post",auth,
   /* falta validar el editar post */ validErrorManager,
   editPost
 );
 
 //elimina un post
-postRoutes.delete("/post", deletePost);
+postRoutes.delete("/post",auth, deletePost);
 
 module.exports = postRoutes;

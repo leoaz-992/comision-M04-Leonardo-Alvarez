@@ -1,4 +1,5 @@
 const PostModel = require("../../models/mongoose/postModel.js");
+const User= require("../../models/mongoose/UsuarioModel.js");
 
 const PostsController = {};
 
@@ -19,8 +20,9 @@ PostsController.getAllPosts = async (req, res) => {
 //get posts de un autor
 PostsController.getAllPostsOfAutor = async (req, res) => {
   try {
-    const autorId = req.params.autorId;
-    const listaPosts = await PostModel.find({ autor: autorId });
+    const userName = req.params.username;
+    const userFind = await User.findOne({userName: userName});
+    const listaPosts = await PostModel.find({ autor: userFind._id });
 
     return res.json(listaPosts);
   } catch (error) {
@@ -34,9 +36,9 @@ PostsController.getAllPostsOfAutor = async (req, res) => {
 // get post
 PostsController.getPost = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { postId } = req.params;
 
-    const postEncontrado = await PostModel.findById(id);
+    const postEncontrado = await PostModel.findById(postId);
 
     return res.json(postEncontrado);
   } catch (error) {

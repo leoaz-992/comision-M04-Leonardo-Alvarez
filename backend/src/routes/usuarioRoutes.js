@@ -1,27 +1,16 @@
 const userRoutes = require("express").Router();
+const auth = require("../middlewares/auth.middleware.js");
 const {
-  getUsers,
-  getOneUser,
-  getOneUserforId,
   editUser,
   editPasswordUser,
   deleteUser,
 } = require("./../controllers/mongoose/UsuariosController.js");
 
-// Ver usuarios
-userRoutes.get("/usuarios", getUsers);
-
-// Ver usuario
-userRoutes.get("/usuario/:username", getOneUser);
-
-userRoutes.get("/usuario/:id", getOneUserforId);
-
-// Editar usuario
-userRoutes.patch("/usuario", editPasswordUser);
-
-userRoutes.put("/usuario", editUser);
-
+// Editar password usuario
+userRoutes.patch("/usuario",auth, editPasswordUser);
+//edit usuario
+userRoutes.put("/usuario",auth, editUser);
 // Eliminar usuario
-userRoutes.delete("/usuario", deleteUser);
+userRoutes.delete("/usuario",auth,deleteUser);
 
 module.exports = userRoutes;

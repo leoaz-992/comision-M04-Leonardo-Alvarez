@@ -6,11 +6,9 @@ const {
 const {
   commentFieldValidations,
 } = require("../middlewares/comment.middleware.js");
-
+const auth = require("../middlewares/auth.middleware.js");
 const {
   getCommentsOfPost,
-  getCommentsOfAutor,
-  getComment,
   createComment,
   editComment,
   deleteComment,
@@ -23,25 +21,16 @@ commentRoutes.get(
   validErrorManager,
   getCommentsOfPost
 );
-//obtiene todos los comentarios de un autor
-commentRoutes.get(
-  "/usuario/:autorId/comments",
-  paramsValidator,
-  validErrorManager,
-  getCommentsOfAutor
-);
-//Obtiene todos los comentarios
-commentRoutes.get("/comments", getComment);
 //crea un comentario
 commentRoutes.post(
-  "/create-comment",
+  "/create-comment",auth,
   commentFieldValidations,
   validErrorManager,
   createComment
 );
 //edita un comentario
-commentRoutes.put("/edit-comments", editComment);
+commentRoutes.put("/edit-comments",auth, editComment);
 //borra un comentario
-commentRoutes.delete("/delete-comments", deleteComment);
+commentRoutes.delete("/delete-comments",auth, deleteComment);
 
 module.exports = commentRoutes;

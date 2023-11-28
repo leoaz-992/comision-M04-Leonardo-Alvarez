@@ -17,43 +17,6 @@ CommentsController.getCommentsOfPost = async (req, res) => {
   }
 };
 
-//get Comments de un autor
-CommentsController.getCommentsOfAutor = async (req, res) => {
-  try {
-    const autorId = req.params.autorId; // o como sea que obtengas el ID del autor
-    const listaComments = await CommentModel.find({ autor: autorId });
-
-    return res.json(listaComments);
-  } catch (error) {
-    return res.status(500).json({
-      mensaje: "Ocurrió un error interno",
-      error: error,
-    });
-  }
-};
-
-// get Comment
-CommentsController.getComment = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const CommentEncontrado = await CommentModel.findById(id);
-
-    return res.json(CommentEncontrado);
-  } catch (error) {
-    let mensaje = "Ocurrió un error interno al intentar obtener el Comment";
-
-    if (error.kind === "ObjectId") {
-      mensaje = "No se pudo obtener el Comment";
-    }
-
-    return res.status(500).json({
-      mensaje: mensaje,
-      error: error,
-    });
-  }
-};
-
 // Crear Comment
 CommentsController.createComment = async (req, res) => {
   try {

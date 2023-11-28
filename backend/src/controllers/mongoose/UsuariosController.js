@@ -2,67 +2,6 @@ const UsuarioModel = require("./../../models/mongoose/UsuarioModel.js");
 
 const UsuariosController = {};
 
-// Ver usuarios
-UsuariosController.getUsers = async (req, res) => {
-  try {
-    const listaUsuarios = await UsuarioModel.find();
-
-    return res.json(listaUsuarios);
-  } catch (error) {
-    return res.status(500).json({
-      mensaje: "Ocurrió un error interno",
-      error: error,
-    });
-  }
-};
-
-// busca un usuario por su username
-UsuariosController.getOneUser = async (req, res) => {
-  try {
-    const { username } = req.params;
-
-    const usuarioEncontrado = await UsuarioModel.findOne({
-      userName: username,
-    });
-    if (!usuarioEncontrado) {
-      return res.status(404).json({
-        mensaje: "Usuario no encontrado.",
-      });
-    }
-
-    return res.json(usuarioEncontrado);
-  } catch (error) {
-    let mensaje = "Ocurrió un error interno al intentar obtener el usuario";
-
-    return res.status(500).json({
-      mensaje: mensaje,
-      error: error,
-    });
-  }
-};
-
-//busca un usuario por su id
-UsuariosController.getOneUserforId = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const usuarioEncontrado = await UsuarioModel.findById(id);
-
-    return res.json(usuarioEncontrado);
-  } catch (error) {
-    let mensaje = "Ocurrió un error interno al intentar obtener el usuario";
-
-    if (error.kind === "ObjectId") {
-      mensaje = "No se pudo obtener el usuario";
-    }
-
-    return res.status(500).json({
-      mensaje: mensaje,
-      error: error,
-    });
-  }
-};
-
 // Editar usuario
 UsuariosController.editUser = async (req, res) => {
   try {

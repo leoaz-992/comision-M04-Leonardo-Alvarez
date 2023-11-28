@@ -1,5 +1,5 @@
 const autenticacionRouter = require("express").Router();
-const { validErrorManager} = require("../middlewares/fieldsValidation.middleware.js");
+const { validErrorManager, loginFieldValidations} = require("../middlewares/validation.middleware.js");
 const { userFieldValidations } = require("../middlewares/user.middleware.js");
 
 const {
@@ -17,7 +17,7 @@ autenticacionRouter.post(
   registrarUsuario
 );
 //login usuario
-autenticacionRouter.post("/login", loginUsuario);
+autenticacionRouter.post("/login",loginFieldValidations, validErrorManager, loginUsuario);
 //logout
 autenticacionRouter.get("/logout", logout);
 
