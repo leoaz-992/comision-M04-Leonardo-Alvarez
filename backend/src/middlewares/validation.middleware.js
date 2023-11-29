@@ -30,7 +30,6 @@ const paramsValidator = [
 const validErrorManager = (req, res, next) => {
   const errores = validationResult(req);
   if (!errores.isEmpty()) {
-    console.log(errores);
     return res
       .status(400)
       .json({ mensaje: errores.errors.map((error) => error.msg) });

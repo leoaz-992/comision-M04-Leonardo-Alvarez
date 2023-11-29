@@ -1,0 +1,10 @@
+h1{
+  font-weight: 900;
+}
+
+.formLogin{
+  padding: 20px;
+  margin-top: 12px;
+  border-radius: 5px;
+  background-color: rgba(62, 142, 186, 0.5);
+}
