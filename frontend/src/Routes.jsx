@@ -1,32 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "./context/authContext";
 
-import Inicio from "./views/inicio";
-import Login from "./views/login";
-import Registro from "./views/registro";
-
-const routes= createBrowserRouter([
-  {
-    path: "/",
-    element: <Inicio/>,
-}, {
-    path: "/registrarse",
-    element:<Registro/>,
-}, {
-    path: "/crear",
-    element: {},
-}, {
-    path: "/eliminar/:id",
-    element: {},
-}, {
-    path: "/editar/:id",
-    element: {},
-}, {
-    path: "/ver/:id",
-    element: {},
-}, {
-    path: "/login",
-    element: <Login/>
-}
-])
-
-export default routes;
+export const ProtectedRoute = () => {
+  const { isAuthenticated, loading } = useAuth();
+  if (!isAuthenticated && !loading) return <Navigate to="/login" replace />;
+  return <Outlet />;
+};

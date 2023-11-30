@@ -1,17 +1,14 @@
-import LoginForm from "../components/LoginForm";
+import PostForm from "../components/PostForm";
 
 
-const Login = () => {
- 
+function CreatePost() {
   return (
-    <>
     <div className="row justify-content-center">
       <div className="col-md-6 mt-5">
-        <LoginForm/>
+          <PostForm/>
       </div>
     </div>
-    </>
   )
 }
 
-export default Login;
+export default CreatePost;

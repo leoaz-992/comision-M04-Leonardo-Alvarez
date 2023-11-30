@@ -16,7 +16,6 @@ const RegistroForm =()=>{
   const navigate = useNavigate();
 
   const onSubmit = async (value) => {
-    console.log(value);
     await signup(value);
   };
 
@@ -48,13 +47,17 @@ const RegistroForm =()=>{
         <Form.Label>Email</Form.Label>
         <Form.Control type="email" placeholder="Ingrese su Email." {...register("email",{required:true})}/>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formPlaintextPassword">
+      <Form.Group className="mb-3" controlId="password">
         <Form.Label column sm="2">
           Password
         </Form.Label>
         <Col sm="12">
           <Form.Control type="password" placeholder="Password" {...register("password",{required:true})}/>
         </Col>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="avatarURL">
+        <Form.Label>avatar URL</Form.Label>
+        <Form.Control type="text" placeholder="Ingrese la url de una imagen." {...register("avatarURL")} />
       </Form.Group>
       <div className="d-grid gap-2 mt-5">
         <Button type="Submit" variant="outline-success" size="lg">Registrarse</Button>

@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // clear errors after 5 seconds
+  // borra los errores despues de 5 segundos
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
@@ -65,7 +65,6 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         return;
       }
-
       try {
         const res = await verifyTokenRequest(cookies.token);
         console.log(res);
@@ -74,6 +73,7 @@ export const AuthProvider = ({ children }) => {
         setUser(res.data);
         setLoading(false);
       } catch (error) {
+        console.log(error)
         setIsAuthenticated(false);
         setLoading(false);
       }
