@@ -33,7 +33,7 @@ commentRoutes.post(
 );
 //edita un comentario
 commentRoutes.put(
-  "/edit-comments",
+  "/edit-comment",
   auth,
   editcommentFieldValidations,
   validErrorManager,
@@ -41,7 +41,7 @@ commentRoutes.put(
 );
 //borra un comentario
 commentRoutes.delete(
-  "/delete-comments",
+  "/delete-comment",
   auth,
   deletecommentValidation,
   validErrorManager,

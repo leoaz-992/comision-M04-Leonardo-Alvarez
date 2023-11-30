@@ -1,3 +1,4 @@
+const { model } = require("mongoose");
 const PostModel = require("../../models/mongoose/postModel.js");
 const User = require("../../models/mongoose/UsuarioModel.js");
 
@@ -6,9 +7,15 @@ const PostsController = {};
 // get Listposts
 PostsController.getAllPosts = async (req, res) => {
   try {
-    const listaPosts = await PostModel.find();
-
-    return res.json(listaPosts);
+    const listaPosts = await PostModel.find().populate('autor');
+    return res.json(listaPosts.map(post => ({
+      _id: post._id,
+      title: post.title,
+      description: post.description,
+      imageURL: post.imageURL,
+      createdAt: post.createdAt,
+      autorName: post.autor.firstName
+    })));
   } catch (error) {
     return res.status(500).json({
       mensaje: "Ocurrió un error interno",
@@ -38,7 +45,7 @@ PostsController.getPost = async (req, res) => {
   try {
     const { postId } = req.params;
 
-    const postEncontrado = await PostModel.findById(postId);
+    const postEncontrado = await PostModel.findById(postId).populate('autor');
 
     return res.json({
       _id: postEncontrado._id,
@@ -46,6 +53,7 @@ PostsController.getPost = async (req, res) => {
       description: postEncontrado.description,
       imageURL: postEncontrado.imageURL,
       createdAt: postEncontrado.createdAt,
+      autorName: postEncontrado.autor.name,
     });
   } catch (error) {
     let mensaje = "Ocurrió un error interno al intentar obtener el post";
