@@ -7,14 +7,14 @@ const PostsController = {};
 // get Listposts
 PostsController.getAllPosts = async (req, res) => {
   try {
-    const listaPosts = await PostModel.find().populate('autor');
+    const listaPosts = await PostModel.find().populate("autor");
     return res.json(listaPosts.map(post => ({
       _id: post._id,
       title: post.title,
       description: post.description,
       imageURL: post.imageURL,
       createdAt: post.createdAt,
-      autorName: post.autor.firstName
+      autorId: post.autor
     })));
   } catch (error) {
     return res.status(500).json({

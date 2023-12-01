@@ -1,17 +1,22 @@
 import {useAuth} from "../context/authContext";
-import { usePosts } from '../context/postContext';
 import Post from '../components/PostCard';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import {getAllPostsRequest} from "../api/post"
+import { Link } from "react-router-dom";
+
 
 
 
 const Inicio = () => {
   const { isAuthenticated, user } = useAuth();
-  const {getPosts, posts}= usePosts();
+  const[posts, setPosts] =useState([])
 
   
   useEffect(() => {
-    getPosts();
+    getAllPostsRequest().then((res)=>{
+    setPosts(res) 
+    }
+    )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
  
@@ -22,9 +27,15 @@ const Inicio = () => {
       ):("")}
       <h1 className='text-center'>Todas las publicaciones</h1>
       <div className='row g-3 my-2 '>
-      {posts.map((post,i)=>(
-        <Post post={post} key={i}/>
-      ))}
+      {posts.length===0?(
+        <>
+        <h2 className="text-center my-3">No hay publicaciones para mostrar.</h2>
+        <Link to={"/crear-post"}>crea una publicacion</Link>
+        </>
+        
+      ):(posts.map((post,i)=>(
+        <Post post={post} user={user} auth={isAuthenticated} key={i}/>
+      )))}
     </div>
     </>
   )
