@@ -32,6 +32,6 @@ const UsuarioSchema = new Schema({
   avatarURL: String,
 });
 
-const UsuarioModel = model("usuario", UsuarioSchema);
+const UsuarioModel = model("Usuario", UsuarioSchema);
 
 module.exports = UsuarioModel;

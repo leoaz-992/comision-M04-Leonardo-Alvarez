@@ -7,15 +7,22 @@ const PostsController = {};
 // get Listposts
 PostsController.getAllPosts = async (req, res) => {
   try {
-    const listaPosts = await PostModel.find().populate("autor");
-    return res.json(listaPosts.map(post => ({
-      _id: post._id,
-      title: post.title,
-      description: post.description,
-      imageURL: post.imageURL,
-      createdAt: post.createdAt,
-      autorId: post.autor
-    })));
+    const listaPosts = await PostModel.find().populate("autor", {
+      userName: 1,
+      firstName: 1,
+      lastName: 1,
+    });
+    console.log(listaPosts);
+    return res.json(
+      listaPosts.map((post) => ({
+        _id: post._id,
+        title: post.title,
+        description: post.description,
+        imageURL: post.imageURL,
+        createdAt: post.createdAt,
+        autorId: post.autor,
+      }))
+    );
   } catch (error) {
     return res.status(500).json({
       mensaje: "Ocurrió un error interno",
@@ -45,7 +52,11 @@ PostsController.getPost = async (req, res) => {
   try {
     const { postId } = req.params;
 
-    const postEncontrado = await PostModel.findById(postId).populate('autor');
+    const postEncontrado = await PostModel.findById(postId).populate("autor", {
+      userName: 1,
+      firstName: 1,
+      lastName: 1,
+    });
 
     return res.json({
       _id: postEncontrado._id,
@@ -53,7 +64,7 @@ PostsController.getPost = async (req, res) => {
       description: postEncontrado.description,
       imageURL: postEncontrado.imageURL,
       createdAt: postEncontrado.createdAt,
-      autorName: postEncontrado.autor.name,
+      autorName: postEncontrado.autor,
     });
   } catch (error) {
     let mensaje = "Ocurrió un error interno al intentar obtener el post";

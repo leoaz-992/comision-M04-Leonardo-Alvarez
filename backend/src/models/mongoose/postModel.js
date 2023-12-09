@@ -17,13 +17,13 @@ const PostSchema = new Schema(
     imageURL: String,
     autor: {
       type: Types.ObjectId,
-      Ref: "usuario",
+      ref: "Usuario",
       required: true,
     },
   },
   { timestamps: true }
 );
 
-const PostModel = model("post", PostSchema);
+const PostModel = model("Post", PostSchema);
 
 module.exports = PostModel;

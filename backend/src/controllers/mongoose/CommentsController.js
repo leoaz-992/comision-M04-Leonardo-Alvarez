@@ -6,7 +6,15 @@ const CommentsController = {};
 CommentsController.getCommentsOfPost = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const listaComments = await CommentModel.find({ post: postId });
+    const listaComments = await CommentModel.find({ post: postId })
+      .populate("autor", {
+        userName: 1,
+        firstName: 1,
+        lastName: 1,
+      })
+      .populate("post", {
+        title: 1,
+      });
 
     return res.json(listaComments);
   } catch (error) {

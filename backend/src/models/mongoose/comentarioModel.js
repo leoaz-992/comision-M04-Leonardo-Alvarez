@@ -8,12 +8,12 @@ const ComentarioSchema = new Schema(
       minLength: 3,
       maxLength: 500,
     },
-    post: { type: Types.ObjectId, Ref: "post", required: true },
-    autor: { type: Types.ObjectId, Ref: "usuario", required: true },
+    post: { type: Types.ObjectId, ref: "Post", required: true },
+    autor: { type: Types.ObjectId, ref: "Usuario", required: true },
   },
   { timestamps: true }
 );
 
-const ComentarioModel = model("comment", ComentarioSchema);
+const ComentarioModel = model("Comment", ComentarioSchema);
 
 module.exports = ComentarioModel;
