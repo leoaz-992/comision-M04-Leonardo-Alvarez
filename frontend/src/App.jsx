@@ -7,11 +7,13 @@ import Login  from"./views/login"
 import Registro from "./views/registro"
 import CreatePost from "./views/createPost";
 import ViewOnePost from "./views/viewOnePost";
+import { PostProvider } from "./context/postContext";
 
 function App() {
   return (
     <>
       <AuthProvider>
+        <PostProvider>
           <Layout>
             <BrowserRouter>
             <Routes>
@@ -26,6 +28,7 @@ function App() {
             </Routes>
             </BrowserRouter>
           </Layout>
+        </PostProvider>
       </AuthProvider>
     </>
   )

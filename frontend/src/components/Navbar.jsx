@@ -3,14 +3,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import {useAuth} from "../context/authContext";
-import { Link } from 'react-router-dom';
 
 function NavbarComponent() {
-  const { isAuthenticated, logout,} = useAuth();
+  const { isAuthenticated, logout} = useAuth();
   return (
     <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="/">Proyecto integrador</Navbar.Brand>
+        <Navbar.Brand href="/">mis viajes App</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse className="justify-content-end" id="navbarScroll">
           <Nav
@@ -21,8 +20,8 @@ function NavbarComponent() {
             {isAuthenticated ? (
               <>
               <Nav.Link href="/perfil">perfil</Nav.Link>
-              <a className='btn btn-outline-success' href='/crear-post'>crear publicacion</a>
-               <Button className='ms-2 me-3' variant="outline-danger" size='sm'
+              <a className='btn btn-outline-success ms-1 me-1' href='/crear-post'>crear publicacion</a>
+               <Button className='ms-1 me-1' variant="outline-danger" size='sm'
                onClick={() => logout()}>Cerrar sesion</Button>
                 
                </>
