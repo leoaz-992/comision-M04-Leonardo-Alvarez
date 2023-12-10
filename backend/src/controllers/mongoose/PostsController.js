@@ -12,7 +12,7 @@ PostsController.getAllPosts = async (req, res) => {
       firstName: 1,
       lastName: 1,
     });
-    console.log(listaPosts);
+
     return res.json(
       listaPosts.map((post) => ({
         _id: post._id,
@@ -20,7 +20,7 @@ PostsController.getAllPosts = async (req, res) => {
         description: post.description,
         imageURL: post.imageURL,
         createdAt: post.createdAt,
-        autorId: post.autor,
+        autorData: post.autor,
       }))
     );
   } catch (error) {
