@@ -1,25 +1,25 @@
 import { Card,Accordion, Badge } from "react-bootstrap"
-function ComentsCard({postId}) {
+import CommentInPost from "./commentInPost";
+
+function ComentsCard({content}) {
+  const comments= content;
+
   return (
     <>
     <Accordion className='mt-2'>
       <Accordion.Item eventKey="0">
-        <Accordion.Header className='d-flex justify-content-between '>Comentarios
-
-      <Badge className='mx-2' bg="info" pill>
-          2
-        </Badge>
+        <Accordion.Header className='d-flex justify-content-between '>
+          Comentarios
+          <Badge className='mx-2' bg="info" pill>
+            {comments.length}
+          </Badge>
         </Accordion.Header>
         <Accordion.Body>
-        <Card className="mt-1">
-      <Card.Body>This is some text within a card body 1.</Card.Body>
-    </Card>
-    <Card className="mt-1">
-      <Card.Body>This is some text within a card body 2.</Card.Body>
-    </Card>
-    <Card>
-      <Card.Body>This is some text within a card body 3.</Card.Body>
-    </Card>
+            {comments && comments.length === 0?("no existen comentarios."):(
+              comments.map((comment)=>(
+                <CommentInPost key={comment._id} comment={comment}/>
+              ))
+            )}
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

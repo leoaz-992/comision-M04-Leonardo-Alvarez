@@ -9,7 +9,7 @@ import { usePost } from "../context/postContext";
 
 const Inicio = () => {
   const { isAuthenticated, user } = useAuth();
-  const {postList, getPosts} = usePost();
+  const {postList, getPosts } = usePost();
 
   useEffect(()=>{
   getPosts();

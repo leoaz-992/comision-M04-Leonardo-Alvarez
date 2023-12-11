@@ -4,7 +4,11 @@ getPostRequest,
 getAllPostsOfAutorRequest,
 getAllPostsRequest,
 deletePostRequest,
-editPostRequest} from "../api/post"
+editPostRequest} from "../api/post";
+import { getAllCommentOfPostRequest,
+  createCommentRequest,
+  deleteCommentRequest,
+  editCommentRequest } from "../api/coment"
 
 const PostContext = createContext();
 
@@ -17,11 +21,14 @@ export const usePost = () => {
 export function PostProvider({ children }) {
   const [postList, setPostList] = useState([]);
   const [errorPost, setErrorPost]= useState([]);
+  const [comments, setComments]= useState([]);
+  const[errorComment,setErrorComment]= useState([]);
 
   const getPosts = async () => {
     const resp = await getAllPostsRequest();
     setPostList(resp);
   };
+
   const getPostsOfAuthor = async () => {
     const resp = await getAllPostsOfAutorRequest;
     setPostList(resp.data);
@@ -51,18 +58,41 @@ export function PostProvider({ children }) {
     
   };
 
+//!-----comments request-----
+
+  const getCommentsOfPost= async (postId)=>{
+    const res = await getAllCommentOfPostRequest(postId);
+    setComments(res);
+  }
+
+  const createComment=async (content)=>{
+    try{
+      const res = await createCommentRequest(content);
+      return res;
+    } catch (error) {
+      console.log(error.response);
+      setErrorComment(error.response.data.mensaje)
+      return error.response.data.mensaje;
+    }
+  }
+
+
 
   return (
     <PostContext.Provider
       value={{
         postList,
         errorPost,
+        comments,
+        errorComment,
         getPosts,
         getPostsOfAuthor,
         deletePost,
         createPost,
         getPost,
         updatePost,
+        getCommentsOfPost,
+        createComment,
       }}
     >
       {children}

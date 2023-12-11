@@ -5,15 +5,21 @@ import { useForm } from "react-hook-form";
 import{createComment } from "../api/coment"
 import{ useAuth } from '../context/authContext';
 import ComentsCard from './ComentsCard';
-
+import { usePost } from "../context/postContext";
 
 // eslint-disable-next-line react/prop-types
 function Post({post}) {
   const [show, setShow] = useState(false);
   const [errComment,setErrComment]= useState([])
   const { user, isAuthenticated} =useAuth();
+  const {createComment,getCommentsOfPost, comments}=usePost();
+
+
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
+  
   const sendComment=async(data)=>{
     const res = await createComment(data);
     res ==="comentario creado con éxito"?setShow(false):setErrComment(res)
@@ -27,6 +33,8 @@ function Post({post}) {
   // eslint-disable-next-line react/prop-types
   const postId = post._id;
   // eslint-disable-next-line react/prop-types
+
+  getCommentsOfPost(postId);
   
   const datePost =
   // eslint-disable-next-line react/prop-types
@@ -44,7 +52,8 @@ function Post({post}) {
   // eslint-disable-next-line react/prop-types
   const description= post.description;
 
-  const autorPost= post.autorData.userName;
+  // eslint-disable-next-line react/prop-types
+  const autorPost= post?.autorData?.userName;
 
   return (
     <div className='col-lg-6 px-3 py-2'>
@@ -58,7 +67,7 @@ function Post({post}) {
         {description}
         </Card.Text>
         
-        <ComentsCard postId={postId}/>
+        <ComentsCard content={comments}/>
 
       </Card.Body>
       <Card.Footer className="text-muted align-items-center d-flex justify-content-between">
@@ -66,13 +75,13 @@ function Post({post}) {
           {datePost}
         </div>
       {isAuthenticated?(
-          <div>
-          <Button variant="primary"onClick={handleShow}>Comentar</Button>
-          <Link className='mx-1 btn btn-secondary tbn-sm' to={`post/${postId}`}>ver el post Completo</Link>
+          <div className=''>
+          <Button  variant="primary"  size="sm" onClick={handleShow}>Comentar</Button>
+          <Link className='mx-1 btn btn-secondary btn-sm' to={`post/${postId}`}>ver el post Completo</Link>
           </div>
         ):(
           
-          <Link className='mx-1 btn btn-secondary tbn-sm' to={`post/${postId}`}>ver el post Completo</Link>
+          <Link className='mx-1 btn btn-secondary btn-sm' to={`post/${postId}`}>ver el post Completo</Link>
         )}
       </Card.Footer>
     </Card>
