@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Col,Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import {Message} from './Message';
+import { Link } from "react-router-dom";
 
 const RegistroForm =()=>{
   const { signup,errors: registerErrors, isAuthenticated } = useAuth();
@@ -63,6 +64,9 @@ const RegistroForm =()=>{
         <Button type="Submit" variant="outline-success" size="lg">Registrarse</Button>
       </div>
     </Form>
+    <p className="flex gap-x-2 text-center mt-2">
+          Ya tienes un usuario? <Link to="/login" className="text-decoration-none">Inicia sesión</Link>
+        </p>
     </>
   )
 

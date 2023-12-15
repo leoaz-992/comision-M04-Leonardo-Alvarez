@@ -1,20 +1,18 @@
 import { Card, Button,Modal,Form, Alert} from 'react-bootstrap';
-import { useState } from 'react';
+import { useState} from 'react';
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import{createComment } from "../api/coment"
 import{ useAuth } from '../context/authContext';
+import { usePost } from'../context/postContext'
 import ComentsCard from './ComentsCard';
-import { usePost } from "../context/postContext";
 
 // eslint-disable-next-line react/prop-types
 function Post({post}) {
   const [show, setShow] = useState(false);
-  const [errComment,setErrComment]= useState([])
+  const [errCreateComment,setErrCreateComment]= useState([])
   const { user, isAuthenticated} =useAuth();
-  const {createComment,getCommentsOfPost, comments}=usePost();
-
-
+  const {comments,createComment,getAllComments} =usePost();
+  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -22,7 +20,8 @@ function Post({post}) {
   
   const sendComment=async(data)=>{
     const res = await createComment(data);
-    res ==="comentario creado con éxito"?setShow(false):setErrComment(res)
+    res ==="comentario creado con éxito"?setShow(false):setErrCreateComment(res)
+    getAllComments()
   }
   
   const {
@@ -33,9 +32,9 @@ function Post({post}) {
   // eslint-disable-next-line react/prop-types
   const postId = post._id;
   // eslint-disable-next-line react/prop-types
-
-  getCommentsOfPost(postId);
   
+  const commentsOfPost = comments.filter(item => item.post._id === postId);
+
   const datePost =
   // eslint-disable-next-line react/prop-types
   new Date(post.createdAt).toLocaleDateString("en-US", {
@@ -56,7 +55,7 @@ function Post({post}) {
   const autorPost= post?.autorData?.userName;
 
   return (
-    <div className='col-lg-6 px-3 py-2'>
+    <>
     <Card>
       <Card.Header className="d-flex justify-content-between px-0 mx-0">
         <div className="ps-2"><strong>{autorPost}</strong> agregó</div>
@@ -66,22 +65,20 @@ function Post({post}) {
         <Card.Text>
         {description}
         </Card.Text>
-        
-        <ComentsCard content={comments}/>
-
+        <ComentsCard content={commentsOfPost}/> 
       </Card.Body>
       <Card.Footer className="text-muted align-items-center d-flex justify-content-between">
         <div className=''>
           {datePost}
         </div>
       {isAuthenticated?(
-          <div className=''>
-          <Button  variant="primary"  size="sm" onClick={handleShow}>Comentar</Button>
+          <div className='d-grid gap-2'>
+          <Button className='mx-1' variant="primary"  size="sm" onClick={handleShow}>Comentar</Button>
           <Link className='mx-1 btn btn-secondary btn-sm' to={`post/${postId}`}>ver el post Completo</Link>
           </div>
         ):(
           
-          <Link className='mx-1 btn btn-secondary btn-sm' to={`post/${postId}`}>ver el post Completo</Link>
+          <Link className='mx-1 btn btn-secondary btn-sm' to={`/post/${postId}`}>ver el post Completo</Link>
         )}
       </Card.Footer>
     </Card>
@@ -92,9 +89,9 @@ function Post({post}) {
           <Modal.Title>Comentar: <strong>{title}</strong></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {errComment?(
+          {errCreateComment?(
           <>
-          {errComment.map((err,i)=>(
+          {errCreateComment.map((err,i)=>(
             <Alert key={i} variant="danger">{err}</Alert>
           ))}
           </>):("")}
@@ -116,7 +113,7 @@ function Post({post}) {
           </Button>
         </Modal.Footer>
       </Modal>
-      </div>
+      </>
   )
 }
 

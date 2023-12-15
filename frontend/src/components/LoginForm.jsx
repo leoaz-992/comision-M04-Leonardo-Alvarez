@@ -52,7 +52,7 @@ const LoginForm =()=>{
       </div>
     </Form>
     <p className="flex gap-x-2 text-center mt-2">
-          No tienes un usuario? <Link to="/registrarse" className="text-sky-500">Registrate</Link>
+          No tienes un usuario? <Link to="/registrarse" className="text-decoration-none">Registrate</Link>
         </p>
     </>
   )

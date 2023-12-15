@@ -1,4 +1,4 @@
-import { Card,Accordion, Badge } from "react-bootstrap"
+import {Accordion, Badge } from "react-bootstrap"
 import CommentInPost from "./commentInPost";
 
 function ComentsCard({content}) {

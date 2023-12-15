@@ -1,6 +1,6 @@
 import {useAuth} from "../context/authContext";
 import Post from '../components/PostCard';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { usePost } from "../context/postContext";
 
@@ -9,12 +9,21 @@ import { usePost } from "../context/postContext";
 
 const Inicio = () => {
   const { isAuthenticated, user } = useAuth();
-  const {postList, getPosts } = usePost();
+  const {postList, getPosts,getAllComments} = usePost();
 
   useEffect(()=>{
   getPosts();
+  getAllComments()
   },[])
- 
+
+
+  postList.forEach(post => {
+    post.createdAt = new Date(post.createdAt);
+  });
+
+// Ordena los objetos por fecha de creación
+  postList.sort((a, b) => b.createdAt - a.createdAt);
+
   return (
       <>
       {isAuthenticated?(
@@ -29,7 +38,9 @@ const Inicio = () => {
         </>
         
       ):( postList.map((post,i)=>(
-        <Post post={post} key={i}/>
+        <div key={i} className='col-lg-6 px-3 py-2'>
+        <Post post={post} />
+        </div>
       )) )}
     </div>
     </>

@@ -5,7 +5,8 @@ getAllPostsOfAutorRequest,
 getAllPostsRequest,
 deletePostRequest,
 editPostRequest} from "../api/post";
-import { getAllCommentOfPostRequest,
+import { getAllCommentsRequest,
+  getAllCommentOfPostRequest,
   createCommentRequest,
   deleteCommentRequest,
   editCommentRequest } from "../api/coment"
@@ -60,9 +61,13 @@ export function PostProvider({ children }) {
 
 //!-----comments request-----
 
-  const getCommentsOfPost= async (postId)=>{
-    const res = await getAllCommentOfPostRequest(postId);
-    setComments(res);
+
+  const getAllComments=()=>{
+    getAllCommentsRequest().then((response)=>setComments(response)).catch((error)=>setErrorComment(error))
+  }
+
+  const getCommentsOfPost=(postId)=>{
+    getAllCommentOfPostRequest(postId).then((response)=>setComments(response)).catch((error)=>setErrorComment(error));
   }
 
   const createComment=async (content)=>{
@@ -91,6 +96,7 @@ export function PostProvider({ children }) {
         createPost,
         getPost,
         updatePost,
+        getAllComments,
         getCommentsOfPost,
         createComment,
       }}

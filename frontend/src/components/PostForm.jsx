@@ -1,5 +1,6 @@
 import { Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import {useAuth} from "../context/authContext";
 import { usePost } from "../context/postContext";
@@ -8,15 +9,15 @@ import {Message} from "./Message";
 
 // eslint-disable-next-line react/prop-types
 function PostForm() {
-  const { user,isAuthenticated } = useAuth();
+  const { user } = useAuth();
   const {createPost, errorPost} = usePost();
+  const [show, setShow] = useState(true);
+  const [message,setMessage]=useState("")
 
-  const navigate = useNavigate();
 
-  if(!isAuthenticated){
-    navigate("/");
-  }
-  
+
+
+
   // eslint-disable-next-line no-unused-vars
   const {
     register,
@@ -28,29 +29,37 @@ function PostForm() {
     try {
       const res = await createPost({...data,
       autor:user.id});
-      
-      /* if (params.id) {
-        updatePost(params.id, {
-          ...data,
-          date: dayjs.utc(data.date).format(),
-        });
-      } else {
-        createPost({
-          ...data,
-          date: dayjs.utc(data.date).format(),
-        });
-      } */
-
-      
+      setMessage(""); 
+      setMessage(res.data.mensaje);
     } catch (error) {
       console.log(error);
     
     }
   };
 
+  useEffect(() => {
+    if (!message) {
+      // Oculta el alerta inmediatamente
+      setShow(false);
+  
+      // Muestra el alerta después de un breve retraso
+      const timeoutId = setTimeout(() => {
+        setShow(true);
+      }, 500);  // Puedes ajustar este valor según tus necesidades
+  
+      // Limpia el temporizador si el componente se desmonta
+      return () => clearTimeout(timeoutId);
+    }
+  }, [message]);
+
   return (
     <>
       {errorPost.length!=0?(<Message message={errorPost[0]}/>):("")}
+      {message?(<Alert variant="success" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>{message}</Alert.Heading>
+  
+      </Alert>):("")}
+      
       <Form className="formLogin" 
       onSubmit={handleSubmit(submitPost)}>
         <Form.Group className="mb-3" controlId="title">
