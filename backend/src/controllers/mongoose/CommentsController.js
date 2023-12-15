@@ -2,6 +2,29 @@ const CommentModel = require("../../models/mongoose/comentarioModel.js");
 
 const CommentsController = {};
 
+CommentsController.getAllComments = async (req, res) => {
+  try {
+    const listaComments = await CommentModel.find()
+      .populate("autor", {
+        userName: 1,
+        firstName: 1,
+        lastName: 1,
+      })
+      .populate("post", {
+        title: 1,
+        _id:1
+      });
+
+    return res.json(listaComments);
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: "Ocurrió un error interno",
+      error: error,
+    });
+  }
+};
+
+
 // get ListComments de un post
 CommentsController.getCommentsOfPost = async (req, res) => {
   try {

@@ -10,6 +10,7 @@ const {
 } = require("../middlewares/comment.middleware.js");
 const auth = require("../middlewares/auth.middleware.js");
 const {
+  getAllComments,
   getCommentsOfPost,
   createComment,
   editComment,
@@ -17,6 +18,8 @@ const {
 } = require("./../controllers/mongoose/CommentsController.js");
 
 //obtiene todos los comentarios de un post
+commentRoutes.get("/all-comments",getAllComments);
+
 commentRoutes.get(
   "/post/:postId/comments",
   paramsValidator,

@@ -1,21 +1,21 @@
 import axios from "./axios.js";
 
-export const getAllCommentOfPostRequest = async (postId) => {
-  try {
-    const res = await axios.get(`/post/${postId}/comments`);
-    return res.data;
-  } catch (error) {
-    return error.response.data.mensaje;
-  }
+export const getAllCommentsRequest = () => {
+  return axios.get(`/all-comments`)
+  .then((response)=>response.data)
+  .catch ((error)=> error.response.data.mensaje);
 };
 
-export const createCommentRequest = async (content) => {
-  try {
-    const res = await axios.post(`/create-comment`, content);
-    return res.data.mensaje;
-  } catch (error) {
-    return error.response.data.mensaje;
-  }
+export const getAllCommentOfPostRequest = (postId) => {
+    return axios.get(`/post/${postId}/comments`)
+    .then((response)=>response.data.result)
+    .catch ((error)=> error.response.data.mensaje);
+};
+
+export const createCommentRequest =(content) => {
+    return axios.post(`/create-comment`, content)
+    .then((response)=>response.data.mensaje)
+    .catch ((error)=>error.response.data.mensaje)
 };
 export const editCommentRequest = async (content) => {
   try {
@@ -26,4 +26,4 @@ export const editCommentRequest = async (content) => {
   }
 };
 
-export const deleteCommentRequest = (id) => axios.delete(`/delete-comment`, id);
+export const deleteCommentRequest = (id) => axios.delete(`/delete-comment`, id).then((response)=>console.log(response)).catch((error)=>console.log(error));
