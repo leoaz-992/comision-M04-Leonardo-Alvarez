@@ -53,7 +53,7 @@ postRoutes.put(
 
 //elimina un post
 postRoutes.delete(
-  "/post",
+  "/post/:postId",
   auth,
   deletePostValidation,
   validErrorManager,

@@ -15,6 +15,7 @@ const app = express();
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
 // Middleware
+app.set("etag", false);
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cookieParser());

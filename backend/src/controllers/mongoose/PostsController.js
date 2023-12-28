@@ -126,9 +126,10 @@ PostsController.editPost = async (req, res) => {
 // Eliminar Post
 PostsController.deletePost = async (req, res) => {
   try {
-    const { id } = req.body;
+    console.log(req.params);
+    const { postId } = req.params;
 
-    await PostModel.findByIdAndDelete(id);
+    await PostModel.findByIdAndDelete(postId);
 
     return res.json({ mensaje: "Post eliminado con éxito" });
   } catch (error) {

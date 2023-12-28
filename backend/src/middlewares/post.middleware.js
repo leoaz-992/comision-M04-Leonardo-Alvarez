@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { param, body } = require("express-validator");
 const User = require("../models/mongoose/UsuarioModel.js");
 const Post = require("../models/mongoose/postModel.js");
 
@@ -123,9 +123,9 @@ const editPostFieldValidations = [
 ];
 
 const deletePostValidation = [
-  body("id")
+  param("postId")
     .isMongoId()
-    .withMessage("no existe el post.")
+    .withMessage("no es un id valido")
     .custom((value) => {
       return Post.findById(value).then((post) => {
         if (!post) {
