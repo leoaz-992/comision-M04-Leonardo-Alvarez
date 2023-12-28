@@ -33,7 +33,7 @@ function Post({post}) {
   const postId = post._id;
   // eslint-disable-next-line react/prop-types
   
-  const commentsOfPost = comments.filter(item => item.post._id === postId);
+  const commentsOfPost = comments.filter(item => item?.post?._id === postId);
 
   const datePost =
   // eslint-disable-next-line react/prop-types

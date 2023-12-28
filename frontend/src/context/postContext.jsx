@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 import {createPostRequest,
-getPostRequest,
 getAllPostsOfAutorRequest,
 getAllPostsRequest,
 deletePostRequest,
@@ -20,19 +19,28 @@ export const usePost = () => {
 };
 
 export function PostProvider({ children }) {
-  const [postList, setPostList] = useState([]);
-  const [errorPost, setErrorPost]= useState([]);
-  const [comments, setComments]= useState([]);
-  const[errorComment,setErrorComment]= useState([]);
+  const [postList, setPostList]       = useState([]);
+  const [errorPost, setErrorPost]     = useState([]);
+  const [comments, setComments]       = useState([]);
+  const [errorComment,setErrorComment]= useState([]);
 
   const getPosts = async () => {
-    const resp = await getAllPostsRequest();
-    setPostList(resp);
+    try {
+      const resp = await getAllPostsRequest();
+      setPostList(resp);
+    } catch (error) {
+      setErrorPost(error)
+    }
   };
 
-  const getPostsOfAuthor = async () => {
-    const resp = await getAllPostsOfAutorRequest;
-    setPostList(resp.data);
+  const getPostsOfAuthor = async (username) => {
+    try {
+      const resp = await getAllPostsOfAutorRequest(username);
+    setPostList(resp)
+    } catch (error) {
+      setErrorPost(error)
+    }
+    
   };
 
   
@@ -47,16 +55,23 @@ export function PostProvider({ children }) {
     }
   };
 
-  const getPost = async (id) => {
-   
-  };
 
-  const updatePost = async (id, post) => {
-    
+  const updatePost = async (post) => {
+    try {
+      const  resp = await editPostRequest(post)
+      return resp
+    } catch (error) {
+      setErrorPost(error)
+    }
   };
 
   const deletePost = async (id) => {
-    
+    try {
+      const resp =await deletePostRequest(id)
+      console.log(resp)
+    } catch (error) {
+      setErrorPost(error)
+    }
   };
 
 //!-----comments request-----
@@ -81,6 +96,23 @@ export function PostProvider({ children }) {
     }
   }
 
+  const editComment = async (content)=>{
+    try {
+     const res= await editCommentRequest(content)
+     console.log(res)
+    } catch (error) {
+      setErrorComment(error)
+    }
+  }
+
+  const deleteComment = async (id)=>{
+    try {
+     const res= await deleteCommentRequest(id)
+     console.log(res)
+    } catch (error) {
+      setErrorComment(error)
+    }
+  }
 
 
   return (
@@ -94,11 +126,12 @@ export function PostProvider({ children }) {
         getPostsOfAuthor,
         deletePost,
         createPost,
-        getPost,
         updatePost,
         getAllComments,
         getCommentsOfPost,
         createComment,
+        editComment,
+        deleteComment
       }}
     >
       {children}

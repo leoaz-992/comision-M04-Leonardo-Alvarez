@@ -9,6 +9,7 @@ import Registro from "./views/registro"
 import CreatePost from "./views/createPost";
 import ViewOnePost from "./views/viewOnePost";
 import PerfilUser from "./views/PerfilUser";
+import EditPost from "./views/EditPost";
 
 function App() {
   return (
@@ -22,9 +23,9 @@ function App() {
                <Route path="/login" element={<Login />} />
               <Route path="/registrarse" element={<Registro/>} />
               <Route path="/post/:id" element={<ViewOnePost/>} />
-              <Route element={<ProtectedRoute />}>
+              <Route element={<ProtectedRoute/>}>
                 <Route path="/crear-post" element={<CreatePost/>} />
-                <Route path="/editar-post/:id" element={<CreatePost/>} />
+                <Route path="/editar-post/:id" element={<EditPost/>} />
                 <Route path="/perfil" element={<PerfilUser/>} />
               </Route>
             </Routes>

@@ -10,14 +10,15 @@ import { Link } from "react-router-dom";
 
 function ViewOnePost() {
   const params =useParams();
-  const {postList, getPosts,getAllComments,comments,createComment} = usePost();
+  const { user, isAuthenticated} =useAuth();
+  const {postList, getPosts, getAllComments, comments,createComment} = usePost();
+
   const [show, setShow] = useState(false);
   const [errCreateComment,setErrCreateComment]= useState([])
-  const { user, isAuthenticated} =useAuth();
   
   useEffect(()=>{
     getPosts();
-    getAllComments()
+    getAllComments();
   },[])
 
   const handleClose = () => setShow(false);
@@ -26,6 +27,8 @@ function ViewOnePost() {
   const postId= params.id;
 
   const post = postList.find(p => p._id === postId);
+
+  let datePost, title, description, autorPost;
 
   const sendComment=async(data)=>{
     const res = await createComment(data);
@@ -38,9 +41,10 @@ function ViewOnePost() {
   } = useForm();
   //los datos del post
   
-  const commentsOfPost = comments.filter(item => item.post._id === postId);
+  const commentsOfPost = comments.filter(item => item.post && item.post._id === postId);
 
-  const datePost =
+  if (post) {
+   datePost =
   // eslint-disable-next-line react/prop-types
   new Date(post.createdAt).toLocaleDateString("en-US", {
     weekday: "long",
@@ -52,13 +56,13 @@ function ViewOnePost() {
     minute:"numeric"
   })
   // eslint-disable-next-line react/prop-types
-  const title= post.title;
+   title= post.title;
   // eslint-disable-next-line react/prop-types
-  const description= post.description;
+   description= post.description;
 
   // eslint-disable-next-line react/prop-types
-  const autorPost= post?.autorData?.userName;
-
+   autorPost= post?.autorData?.userName;
+  }
 
   return (
     <>

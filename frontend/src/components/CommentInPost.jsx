@@ -1,6 +1,6 @@
 import { Card } from "react-bootstrap"
 import { useAuth } from "../context/authContext";
-function ommentInPost(comment) {
+function CommentInPost(comment) {
   const { user, isAuthenticated} =useAuth();
 
   const commentContent =  comment.comment.comment;
@@ -18,4 +18,4 @@ function ommentInPost(comment) {
   )
 }
 
-export default ommentInPost
+export default CommentInPost

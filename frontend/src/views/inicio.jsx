@@ -4,9 +4,6 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { usePost } from "../context/postContext";
 
-
-
-
 const Inicio = () => {
   const { isAuthenticated, user } = useAuth();
   const {postList, getPosts,getAllComments} = usePost();
