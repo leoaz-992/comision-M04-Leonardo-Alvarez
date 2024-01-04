@@ -5,7 +5,7 @@ const Post = require("../models/mongoose/postModel.js");
 const numberOfValidCharacters = {
   MIN: 3,
   MAX: 60,
-  DESCRIPTION_MAX: 500,
+  DESCRIPTION_MAX: 2000,
 };
 
 //valida los campoos al crear un post
