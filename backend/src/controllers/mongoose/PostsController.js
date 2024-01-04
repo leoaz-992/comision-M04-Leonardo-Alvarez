@@ -1,6 +1,7 @@
 const { model } = require("mongoose");
 const PostModel = require("../../models/mongoose/postModel.js");
 const User = require("../../models/mongoose/UsuarioModel.js");
+const Comment = require("../../models/mongoose/comentarioModel.js");
 
 const PostsController = {};
 
@@ -126,8 +127,9 @@ PostsController.editPost = async (req, res) => {
 // Eliminar Post
 PostsController.deletePost = async (req, res) => {
   try {
-    console.log(req.params);
     const { postId } = req.params;
+
+    await Comment.deleteMany({ post: postId });
 
     await PostModel.findByIdAndDelete(postId);
 
