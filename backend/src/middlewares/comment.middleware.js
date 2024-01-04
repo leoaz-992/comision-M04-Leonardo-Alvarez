@@ -4,7 +4,7 @@ const Post = require("../models/mongoose/postModel.js");
 const Comment = require("../models/mongoose/comentarioModel.js");
 const numberOfValidCharacters = {
   MIN: 3,
-  DESCRIPTION_MAX: 500,
+  DESCRIPTION_MAX: 1500,
 };
 
 const commentFieldValidations = [
@@ -101,8 +101,8 @@ const deletecommentValidation = [
     .isMongoId()
     .withMessage("no existe el comentario.")
     .custom((value) => {
-      return Comment.findById(value).then((post) => {
-        if (!post) {
+      return Comment.findById(value).then((comment) => {
+        if (!comment) {
           return Promise.reject("No se encontro el comentario.");
         }
       });
