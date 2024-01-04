@@ -1,6 +1,13 @@
 import axios from "./axios.js";
 
-export const getPostRequest = (postId) => axios.get(`/post/${postId}`);
+export const getPostRequest = async (postId) => {
+  try {
+    const res = await axios.get(`/post/${postId}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const getAllPostsRequest = async () => {
   try {

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import {createPostRequest,
+import {getPostRequest, createPostRequest,
 getAllPostsOfAutorRequest,
 getAllPostsRequest,
 deletePostRequest,
@@ -21,6 +21,7 @@ export const usePost = () => {
 // eslint-disable-next-line react/prop-types
 export function PostProvider({ children }) {
   const [postList, setPostList]       = useState([]);
+  const [post, setPost]               = useState({})
   const [errorPost, setErrorPost]     = useState([]);
   const [comments, setComments]       = useState([]);
   const [errorComment,setErrorComment]= useState([]);
@@ -44,6 +45,19 @@ export function PostProvider({ children }) {
     
   };
 
+  const getOnePost =async(id)=>{
+    try {
+      const onePost = await getPostRequest(id);
+      if(onePost.data){
+        console.log(onePost.data);
+        setPost(onePost.data);
+      }
+      return onePost.data
+    } catch (error) {
+      setErrorPost(error.response.data.mensaje)
+    }
+  }
+
   
   const createPost = async (post) => {
     try {
@@ -57,9 +71,10 @@ export function PostProvider({ children }) {
   };
 
 
-  const updatePost = async (post) => {
+  const updatePost = async (postedit) => {
     try {
-      const  resp = await editPostRequest(post)
+      console.log(postedit)
+      const  resp = await editPostRequest(postedit)
       return resp
     } catch (error) {
       setErrorPost(error)
@@ -130,10 +145,12 @@ export function PostProvider({ children }) {
   return (
     <PostContext.Provider
       value={{
+        post,
         postList,
         errorPost,
         comments,
         errorComment,
+        getOnePost,
         getPosts,
         getPostsOfAuthor,
         deletePost,

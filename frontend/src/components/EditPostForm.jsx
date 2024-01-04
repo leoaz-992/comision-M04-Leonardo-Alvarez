@@ -1,4 +1,7 @@
 import { Form, Button, Alert } from "react-bootstrap";
+import Image from 'react-bootstrap/Image';
+
+
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
@@ -9,55 +12,59 @@ import ButtonClose from "./buttonClose";
 
 
 // eslint-disable-next-line react/prop-types
-function PostForm() {
+function EditPostForm({idPost}) {
+  
+  const REDIRECT_TO ="/perfil";
+
   const { user } = useAuth();
-  const {createPost, errorPost} = usePost();
-  const [show, setShow] = useState(true);
-  const [message,setMessage]=useState("")
-
+  const {post,getOnePost, errorPost, updatePost} = usePost();
   const navigate = useNavigate();
+  const [message,setMessage]=useState("")
+  const [show, setShow] = useState(true);
 
+  useEffect(() => {
+    const fetchPost = async () => {
+        await getOnePost(idPost);
+    };
 
+    fetchPost();
+}, [idPost]);
 
-
-
+useEffect(() => {
+    
+    if (post) {
+        setValue('title', post.title);
+        setValue('description', post.description);
+        setValue('imageURL', post.imageURL);
+    }
+}, [post]);
 
   // eslint-disable-next-line no-unused-vars
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },  
   } = useForm();
 
+  
+
+
   const submitPost = async (data) => {
     try {
-      const res = await createPost({...data,
-      autor:user.id});
+      const res = await updatePost({...data, id: idPost});
       setMessage(""); 
       setMessage(res.data.mensaje);
       setTimeout(() => {
-        navigate('/'); // Navega a la página de inicio
+        navigate(REDIRECT_TO); // Navega a la página de inicio
       }, 600);
     } catch (error) {
       console.log(error);
     
     }
   };
+  
 
-  useEffect(() => {
-    if (!message) {
-      // Oculta el alerta inmediatamente
-      setShow(false);
-  
-      // Muestra el alerta después de un breve retraso
-      const timeoutId = setTimeout(() => {
-        setShow(true);
-      }, 500);  // Puedes ajustar este valor según tus necesidades
-  
-      // Limpia el temporizador si el componente se desmonta
-      return () => clearTimeout(timeoutId);
-    }
-  }, [message]);
 
   return (
     <>
@@ -70,7 +77,7 @@ function PostForm() {
       <Form className="formLogin" 
       onSubmit={handleSubmit(submitPost)}>
         <div className="row justify-content-end pe-2">
-            <ButtonClose textOverlay="Cerrar"/>
+            <ButtonClose textOverlay="Cerrar" redirectTo={REDIRECT_TO}/>
         </div>
         <Form.Group className="mb-3" controlId="title">
           <Form.Label>Titulo de la publicacion.</Form.Label>
@@ -86,19 +93,25 @@ function PostForm() {
           <p className="text-danger">Ingrese una descripcion.</p>
         )}
         </Form.Group>
+          {post?(
+          <div>
+            <h6 className="form-label">Imagen de la publicacion</h6>
+            <Image className="p-2" src={post?.imageURL} fluid thumbnail />
+          </div>
+          ):("")}
         <Form.Group className="mb-3" controlId="imageURL">
-          <Form.Label>imagen URL:</Form.Label>
+          <Form.Label>URL de la imagen:</Form.Label>
           <Form.Control type="text" placeholder="Ingrese la url de una imagen." {...register("imageURL")} />
           {errors.description && (
           <p className="text-danger">Ingrese una imagen</p>
         )}
         </Form.Group>
         <div className="d-grid gap-2 mt-5">
-          <Button variant="outline-success" type="Submit" size="lg"> Crear publicacion</Button>
+          <Button variant="outline-success" type="Submit" size="lg"> Editar publicacion</Button>
         </div>
       </Form>
     </>
   )
 }
 
-export default PostForm;
+export default EditPostForm
