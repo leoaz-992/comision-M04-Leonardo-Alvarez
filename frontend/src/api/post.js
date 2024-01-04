@@ -31,5 +31,5 @@ export const createPostRequest = async (content) => {
 export const editPostRequest = (content) => axios.put(`/post`, content);
 
 export const deletePostRequest = (id) => {
-  axios.delete(`/post/${id}`);
+  return axios.delete(`/post/${id}`);
 };

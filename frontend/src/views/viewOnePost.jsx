@@ -1,44 +1,30 @@
 import { useParams} from "react-router-dom"
-import { Card, Button,Modal,Form, Alert} from 'react-bootstrap';
+import { Card} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import { usePost } from "../context/postContext";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../context/authContext";
-import { useForm } from "react-hook-form";
 import ComentsCard from "../components/ComentsCard";
 import { Link } from "react-router-dom";
+import ModalComment from "../components/ModalComment";
 
 function ViewOnePost() {
   const params =useParams();
-  const { user, isAuthenticated} =useAuth();
-  const {postList, getPosts, getAllComments, comments,createComment} = usePost();
+  const { isAuthenticated} =useAuth();
+  const {postList, getPosts, getAllComments, comments} = usePost();
 
-  const [show, setShow] = useState(false);
-  const [errCreateComment,setErrCreateComment]= useState([])
   
   useEffect(()=>{
     getPosts();
     getAllComments();
   },[])
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  
   const postId= params.id;
 
   const post = postList.find(p => p._id === postId);
 
   let datePost, title, description, autorPost;
 
-  const sendComment=async(data)=>{
-    const res = await createComment(data);
-    res ==="comentario creado con éxito"?setShow(false):setErrCreateComment(res)
-  }
-  
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
   //los datos del post
   
   const commentsOfPost = comments.filter(item => item.post && item.post._id === postId);
@@ -75,8 +61,8 @@ function ViewOnePost() {
       </Card.Header>
       <Card.Body>
         <Image className="p-2" src={post.imageURL} fluid />
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>
+        <Card.Title className='fw-bolder fs-3'>{title}</Card.Title>
+        <Card.Text className='fw-lighter ps-2 mb-0'>
         {description}
         </Card.Text>
         <ComentsCard content={commentsOfPost}/> 
@@ -87,7 +73,7 @@ function ViewOnePost() {
         </div>
       {isAuthenticated?(
           <div className='d-grid gap-2'>
-          <Button className='mx-1' variant="primary"  size="sm" onClick={handleShow}>Comentar</Button>
+          <ModalComment title={title} postId={postId}/>
           </div>
         ):(
           <>
@@ -96,39 +82,8 @@ function ViewOnePost() {
         )}
       </Card.Footer>
     </Card>
-          {//modal para crear un comentario
-          }
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Comentar: <strong>{title}</strong></Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {errCreateComment?(
-          <>
-          {errCreateComment.map((err,i)=>(
-            <Alert key={i} variant="danger">{err}</Alert>
-          ))}
-          </>):("")}
-          <Form >
-          <Form.Control type="hidden" value={isAuthenticated?(user.id):(null)} readOnly {...register("autor", { required: true })}/>
-          <Form.Control type="hidden" value={postId} readOnly {...register("post", { required: true })}/>
-            <Form.Group className="mb-3" controlId="comment">
-              <Form.Label>Tu comentario:</Form.Label>
-              <Form.Control as="textarea" rows={3} {...register("comment", { required: true })}/>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(sendComment)}>
-            Comentar
-          </Button>
-        </Modal.Footer>
-      </Modal>
       </div>
-        </div>
+    </div>
     ):(
       <h1 className="text-center">No se encontro el post</h1>
     )}

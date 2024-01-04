@@ -14,6 +14,9 @@ function PostForm() {
   const [show, setShow] = useState(true);
   const [message,setMessage]=useState("")
 
+  const navigate = useNavigate();
+
+
 
 
 
@@ -31,6 +34,9 @@ function PostForm() {
       autor:user.id});
       setMessage(""); 
       setMessage(res.data.mensaje);
+      setTimeout(() => {
+        navigate('/'); // Navega a la página de inicio
+      }, 600);
     } catch (error) {
       console.log(error);
     

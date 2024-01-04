@@ -18,6 +18,7 @@ export const usePost = () => {
   return context;
 };
 
+// eslint-disable-next-line react/prop-types
 export function PostProvider({ children }) {
   const [postList, setPostList]       = useState([]);
   const [errorPost, setErrorPost]     = useState([]);
@@ -68,7 +69,13 @@ export function PostProvider({ children }) {
   const deletePost = async (id) => {
     try {
       const resp =await deletePostRequest(id)
-      console.log(resp)
+      if(resp){
+        const newListPost= postList.filter(post=>{
+          return post._id !== id
+        })
+        setPostList(newListPost)
+      }
+      return resp
     } catch (error) {
       setErrorPost(error)
     }
@@ -108,7 +115,12 @@ export function PostProvider({ children }) {
   const deleteComment = async (id)=>{
     try {
      const res= await deleteCommentRequest(id)
-     console.log(res)
+     if(res){
+       const listComments = comments.filter(comment=>{
+         return comment._id !== id
+       })
+      setComments(listComments)
+     }
     } catch (error) {
       setErrorComment(error)
     }

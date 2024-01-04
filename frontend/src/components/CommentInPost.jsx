@@ -7,12 +7,14 @@ function CommentInPost(comment) {
   const author= comment.comment.autor?.userName;
 
   return (
-    <Card key={comment._id} className="mt-1">
+    <Card key={comment._id} className="mt-1 containerComment">
       <Card.Body>
       <Card.Subtitle className="mb-2 text-muted">
       {isAuthenticated && author === user.username ? "Comentaste:" : `${author} comentó:`}
-        </Card.Subtitle>
+      </Card.Subtitle>
+      <p className="commentText">
         {commentContent}
+      </p>
       </Card.Body>
     </Card>
   )

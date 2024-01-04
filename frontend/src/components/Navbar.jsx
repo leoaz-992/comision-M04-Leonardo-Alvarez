@@ -5,11 +5,15 @@ import Button from 'react-bootstrap/Button';
 import {useAuth} from "../context/authContext";
 
 function NavbarComponent() {
-  const { isAuthenticated, logout} = useAuth();
+  const { isAuthenticated, user, logout} = useAuth();
+  
   return (
     <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="/">mis viajes App</Navbar.Brand>
+        <Navbar.Brand className='textTitle' href="/">mis viajes App</Navbar.Brand>
+        {isAuthenticated?(
+        <strong className='text-secondary ms-2'>Bienvenido {user.username}</strong>
+      ):("")}
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse className="justify-content-end" id="navbarScroll">
           <Nav

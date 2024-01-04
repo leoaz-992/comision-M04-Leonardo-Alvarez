@@ -65,7 +65,7 @@ const RegistroForm =()=>{
       </div>
     </Form>
     <p className="flex gap-x-2 text-center mt-2">
-          Ya tienes un usuario? <Link to="/login" className="text-decoration-none">Inicia sesión</Link>
+          Ya tienes un usuario? <Link to="/login" className="text-decoration-none linkText">Inicia sesión</Link>
         </p>
     </>
   )

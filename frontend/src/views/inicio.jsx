@@ -1,11 +1,9 @@
-import {useAuth} from "../context/authContext";
 import Post from '../components/PostCard';
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { usePost } from "../context/postContext";
 
 const Inicio = () => {
-  const { isAuthenticated, user } = useAuth();
   const {postList, getPosts,getAllComments} = usePost();
 
   useEffect(()=>{
@@ -23,9 +21,6 @@ const Inicio = () => {
 
   return (
       <>
-      {isAuthenticated?(
-        <strong className='text-secondary'>hola {user.username}</strong>
-      ):("")}
       <h1 className='text-center'>Todas las publicaciones</h1>
       <div className='row my-2 '>
       {postList?.length===0?(
