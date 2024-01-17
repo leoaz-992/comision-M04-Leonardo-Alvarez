@@ -107,6 +107,12 @@ PostsController.createPost = async (req, res) => {
 // Editar Post
 PostsController.editPost = async (req, res) => {
   try {
+    if (req.body.autor !== req.user.id) {
+      return res
+        .status(403)
+        .json({ mensaje: "No puedes editar el post si no eres el autor." });
+    }
+
     const { id, title, description, imageURL } = req.body;
 
     await PostModel.findByIdAndUpdate(id, {
