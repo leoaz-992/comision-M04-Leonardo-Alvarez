@@ -59,7 +59,7 @@ AutenticacionController.loginUsuario = async (req, res) => {
     if (!userFound) {
       //respuesta en caso que no exista el email
       return res.status(401).json({
-        message: "The email does not exist",
+        message: `No existe usuario con el email: ${email}`,
       });
     }
     //verifica la contraseña
@@ -67,7 +67,7 @@ AutenticacionController.loginUsuario = async (req, res) => {
     if (!isMatch) {
       //respuesta en caso de que no coincida la conttraseña
       return res.status(401).json({
-        message: "The password is incorrect",
+        message: "No se pudo validar la credenciales.",
       });
     }
     // crea un token
