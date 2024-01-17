@@ -49,7 +49,6 @@ export function PostProvider({ children }) {
     try {
       const onePost = await getPostRequest(id);
       if(onePost.data){
-        console.log(onePost.data);
         setPost(onePost.data);
       }
       return onePost.data
@@ -73,7 +72,6 @@ export function PostProvider({ children }) {
 
   const updatePost = async (postedit) => {
     try {
-      console.log(postedit)
       const  resp = await editPostRequest(postedit)
       return resp
     } catch (error) {

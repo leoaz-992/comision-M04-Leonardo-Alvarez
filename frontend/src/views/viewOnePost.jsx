@@ -7,6 +7,7 @@ import { useAuth } from "../context/authContext";
 import ComentsCard from "../components/ComentsCard";
 import { Link } from "react-router-dom";
 import ModalComment from "../components/ModalComment";
+import ButtonClose from "../components/ButtonClose"
 
 function ViewOnePost() {
   const params =useParams();
@@ -55,9 +56,10 @@ function ViewOnePost() {
     {post?(
       <div className="row pt-5 justify-content-center">
         <div className='col-8 px-3 py-2'>
-    <Card>
+    <Card className='postCard'>
       <Card.Header className="d-flex justify-content-between px-0 mx-0">
         <div className="ps-2"><strong>{autorPost}</strong> agregó</div>
+      <div className="pe-2"><ButtonClose textOverlay="Cerrar"/></div>
       </Card.Header>
       <Card.Body>
         <Image className="p-2" src={post.imageURL} fluid />

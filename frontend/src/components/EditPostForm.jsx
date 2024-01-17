@@ -47,20 +47,26 @@ useEffect(() => {
     formState: { errors },  
   } = useForm();
 
-  
-
 
   const submitPost = async (data) => {
+    if(post.autorName._id!== user.id){
+      setMessage("No puedes modificar este post.")
+      return
+    }
     try {
-      const res = await updatePost({...data, id: idPost});
+      const res = await updatePost({
+        ...data,
+        id: idPost,
+        autor:post.autorName._id
+      });
       setMessage(""); 
-      setMessage(res.data.mensaje);
+      setMessage(res?.data.mensaje);
       setTimeout(() => {
         navigate(REDIRECT_TO); // Navega a la página de inicio
       }, 600);
     } catch (error) {
-      console.log(error);
-    
+      console.log(error)
+      setMessage(error.mensaje)
     }
   };
   

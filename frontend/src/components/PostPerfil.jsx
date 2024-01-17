@@ -43,7 +43,7 @@ function PostPerfil({post , deletePostid}) {
 
   return (
     
-    <Card className='my-2'>
+    <Card className='my-2 postCard'>
       <Card.Body>
         <Card.Title className='fw-bolder fs-3'>{title}</Card.Title>
         <Image className="p-2" src={imagePost} fluid />

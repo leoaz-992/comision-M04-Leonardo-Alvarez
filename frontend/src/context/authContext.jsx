@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
+  //registro
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
@@ -37,19 +38,17 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
       }
     } catch (error) {
-      console.log(error.response.data);
       setErrors(error.response.data.message);
     }
   };
-
+  //inicia sesion
   const signin = async (user) => {
     try {
       const res = await loginRequest(user);
       setUser(res.data);
       setIsAuthenticated(true);
     } catch (error) {
-      console.log(error);
-      // setErrors(error.response.data.message);
+      setErrors(error.response.data.message);
     }
   };
 

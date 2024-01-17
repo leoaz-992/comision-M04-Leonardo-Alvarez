@@ -70,3 +70,8 @@ h1{
 .postCard{
   background-color: rgba(200, 200, 200, 0.5);
 }
+
+.errorFormInvalid{
+  color: rgb(206, 70, 70);
+  /* background-color: black; */
+}
