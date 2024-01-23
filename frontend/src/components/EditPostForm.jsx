@@ -26,7 +26,6 @@ function EditPostForm({idPost}) {
     const fetchPost = async () => {
         await getOnePost(idPost);
     };
-
     fetchPost();
 }, [idPost]);
 
@@ -59,11 +58,13 @@ useEffect(() => {
         id: idPost,
         autor:post.autorName._id
       });
-      setMessage(""); 
-      setMessage(res?.data.mensaje);
-      setTimeout(() => {
-        navigate(REDIRECT_TO); // Navega a la página de inicio
-      }, 600);
+      if(res?.status === 200){
+        setMessage(""); 
+        setMessage(res?.data.mensaje);
+        setTimeout(() => {
+          navigate(REDIRECT_TO); // Navega a la página de inicio
+        }, 600);
+      }
     } catch (error) {
       console.log(error)
       setMessage(error.mensaje)

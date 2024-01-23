@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {getPostRequest, createPostRequest,
 getAllPostsOfAutorRequest,
 getAllPostsRequest,
@@ -25,6 +25,26 @@ export function PostProvider({ children }) {
   const [errorPost, setErrorPost]     = useState([]);
   const [comments, setComments]       = useState([]);
   const [errorComment,setErrorComment]= useState([]);
+
+
+  useEffect(() => {
+    if (errorPost.length > 0) {
+      const timer = setTimeout(() => {
+        setErrorPost([]);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorPost]);
+
+  useEffect(() => {
+    if (errorComment.length > 0) {
+      const timer = setTimeout(() => {
+        setErrorComment([]);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorComment]);
+
 
   const getPosts = async () => {
     try {
@@ -75,7 +95,8 @@ export function PostProvider({ children }) {
       const  resp = await editPostRequest(postedit)
       return resp
     } catch (error) {
-      setErrorPost(error)
+      setErrorPost(error.response.data.mensaje)
+      return error.response
     }
   };
 
@@ -90,7 +111,7 @@ export function PostProvider({ children }) {
       }
       return resp
     } catch (error) {
-      setErrorPost(error)
+      setErrorPost(error.response.data.mensaje)
     }
   };
 
