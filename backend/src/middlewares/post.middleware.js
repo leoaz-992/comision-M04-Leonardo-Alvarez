@@ -85,7 +85,7 @@ const editPostFieldValidations = [
     .custom((value, { req }) => {
       return Post.findOne({ autor: req.body.autor, title: value }).then(
         (post) => {
-          if (post) {
+          if (post && post._id != req.body.id) {
             return Promise.reject(
               "Ya existe un post con ese titulo del mismo autor."
             );
@@ -110,7 +110,9 @@ const editPostFieldValidations = [
       return Post.findOne({ autor: req.body.autor, description: value }).then(
         (post) => {
           if (post) {
-            return Promise.reject("La descripcion del post ya existe.");
+            if (post && post._id != req.body.id) {
+              return Promise.reject("La descripcion del post ya existe.");
+            }
           }
         }
       );
