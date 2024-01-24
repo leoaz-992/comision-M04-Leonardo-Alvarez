@@ -20,9 +20,10 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
-  cors({
+  cors(/* {
+    credentials: true,
     origin: FRONTEND_URL,
-  })
+  } */)
 );
 
 // Rutas

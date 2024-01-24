@@ -4,7 +4,7 @@ const API_URL = "https://viaja-app.onrender.com/";
 
 const instance = axios.create({
   baseURL: API_URL,
-  withCredentials: false,
+  /* withCredentials: true, */
 });
 
 export default instance;
