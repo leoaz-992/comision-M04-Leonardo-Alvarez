@@ -1,5 +1,5 @@
 import {Accordion, Badge } from "react-bootstrap"
-import CommentInPost from "./commentInPost";
+import CommentInPost from "./CommentInPost";
 
 // eslint-disable-next-line react/prop-types
 function ComentsCard({content}) {

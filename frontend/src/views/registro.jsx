@@ -1,7 +1,3 @@
-//import { useState, useEffect } from 'react';
-//import { Card } from 'react-bootstrap';
-//import axios from 'axios';
-
 import RegistroForm from "../components/RegistroForm.jsx";
 
 

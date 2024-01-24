@@ -3,7 +3,7 @@ import { usePost } from "../context/postContext";
 import PostPerfil from "../components/PostPerfil";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo } from "react";
-import CommentInPost from "../components/commentInPost"; 
+import CommentInPost from "../components/CommentInPost"
 import DeleteButtom from "../components/DeleteButtom";
 
 
