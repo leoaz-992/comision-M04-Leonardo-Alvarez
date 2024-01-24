@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import {useAuth} from "../context/authContext";
 import { usePost } from "../context/postContext";
 import {Message} from "./Message";
-import ButtonClose from "./buttonClose";
+import ButtonClose from "./ButtonClose";
 
 
 // eslint-disable-next-line react/prop-types
