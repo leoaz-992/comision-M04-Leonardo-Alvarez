@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ProtectedRoute } from "./routes";
+import { ProtectedRoute } from "./Routes";
 import Layout from "./layout/Layout"
 import { AuthProvider } from "./context/authContext"
 import { PostProvider } from "./context/postContext";
