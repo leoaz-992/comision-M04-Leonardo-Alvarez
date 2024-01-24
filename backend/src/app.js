@@ -21,7 +21,6 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
   cors({
-    credentials: true,
     origin: FRONTEND_URL,
   })
 );
