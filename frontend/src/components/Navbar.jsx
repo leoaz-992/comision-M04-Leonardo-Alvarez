@@ -25,15 +25,15 @@ function NavbarComponent() {
             {isAuthenticated ? (
               <>
               <Nav.Link to="/perfil">perfil</Nav.Link>
-              <Link className='btn btn-outline-success m-1' to='/crear-post'>crear publicacion</Link>
+              <Link className='btn btn-outline-success m-1' href='/crear-post'>crear publicacion</Link>
                <Button className='m-1' variant="outline-danger" size='sm'
                onClick={() => logout()}>Cerrar sesion</Button>
                 
                </>
 
             ):(<>
-              <Link to="/login">Iniciar sesion</Link>
-            <Link to="/registrarse">Registrarse</Link></>
+              <Nav.Link href="/login">Iniciar sesion</Nav.Link>
+            <Nav.Link href="/registrarse">Registrarse</Nav.Link></>
             )}
           </Nav>
         </Navbar.Collapse>
