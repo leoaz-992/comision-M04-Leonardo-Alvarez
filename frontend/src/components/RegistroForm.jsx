@@ -7,7 +7,7 @@ import {Message} from './Message';
 import { Link } from "react-router-dom";
 
 const RegistroForm =()=>{
-  const { signup,errors: registerErrors, isAuthenticated } = useAuth();
+  const { signup, errors: registerErrors, isAuthenticated } = useAuth();
   const {
     register,
     handleSubmit,

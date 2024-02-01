@@ -19,8 +19,8 @@ function App() {
           <Layout>
             <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Inicio />} />
-               <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Inicio/>} />
+              <Route path="/login" element={<Login/>} />
               <Route path="/registrarse" element={<Registro/>} />
               <Route path="/post/:id" element={<ViewOnePost/>} />
               <Route element={<ProtectedRoute/>}>
