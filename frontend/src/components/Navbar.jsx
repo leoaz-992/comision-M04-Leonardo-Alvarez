@@ -32,8 +32,8 @@ function NavbarComponent() {
                </>
 
             ):(<>
-              <Nav.Link href="/login">Iniciar sesion</Nav.Link>
-            <Nav.Link href="/registrarse">Registrarse</Nav.Link></>
+              <Nav.Link as={Link} to="/login">Iniciar sesion</Nav.Link>
+            <Nav.Link as={Link} to="/registrarse">Registrarse</Nav.Link></>
             )}
           </Nav>
         </Navbar.Collapse>
