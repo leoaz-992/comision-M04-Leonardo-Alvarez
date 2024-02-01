@@ -24,7 +24,7 @@ const LoginForm =()=>{
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   useEffect(()=>{
     setLoginError(errors)

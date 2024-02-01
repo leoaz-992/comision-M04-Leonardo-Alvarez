@@ -22,8 +22,11 @@ const RegistroForm =()=>{
   };
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/");
-  }, [isAuthenticated]);
+    if (isAuthenticated){ 
+      
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const password = useRef(null);
   password.current = watch("password", "");
