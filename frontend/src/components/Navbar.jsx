@@ -25,7 +25,7 @@ function NavbarComponent() {
             {isAuthenticated ? (
               <>
               <Nav.Link as={Link} to="/perfil">perfil</Nav.Link>
-              <Link className='btn btn-outline-success m-1' href='/crear-post'>crear publicacion</Link>
+              <Link className='btn btn-outline-success m-1' to='/crear-post'>crear publicacion</Link>
                <Button className='m-1' variant="outline-danger" size='sm'
                onClick={() => logout()}>Cerrar sesion</Button>
                 
