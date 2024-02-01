@@ -24,16 +24,16 @@ function NavbarComponent() {
             <Nav.Link href="/">Inicio</Nav.Link>
             {isAuthenticated ? (
               <>
-              <Nav.Link as={Link} to="/perfil">perfil</Nav.Link>
-              <Link className='btn btn-outline-success m-1' to='/crear-post'>crear publicacion</Link>
+              <Nav.Link href="/perfil">perfil</Nav.Link>
+              <Link className='btn btn-outline-success m-1' href='/crear-post'>crear publicacion</Link>
                <Button className='m-1' variant="outline-danger" size='sm'
                onClick={() => logout()}>Cerrar sesion</Button>
                 
                </>
 
             ):(<>
-              <Nav.Link as={Link} to="/login">Iniciar sesion</Nav.Link>
-            <Nav.Link as={Link} to="/registrarse">Registrarse</Nav.Link></>
+              <Nav.Link href="/login">Iniciar sesion</Nav.Link>
+            <Nav.Link href="/registrarse">Registrarse</Nav.Link></>
             )}
           </Nav>
         </Navbar.Collapse>
