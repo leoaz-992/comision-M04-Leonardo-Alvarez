@@ -5,6 +5,7 @@ import { usePost } from "../context/postContext";
 
 const Inicio = () => {
   const {postList, getPosts,getAllComments} = usePost();
+  
 
   useEffect(()=>{
   getPosts();
@@ -12,7 +13,7 @@ const Inicio = () => {
   },[])
 
 
-  postList.forEach(post => {
+  postList?.forEach(post => {
     post.createdAt = new Date(post.createdAt);
   });
 
@@ -25,7 +26,7 @@ const Inicio = () => {
       <div className='row my-2 '>
       {postList?.length===0?(
         <>
-        <h2 className="text-center my-3">No hay publicaciones para mostrar.</h2>
+        <h2 className="text-center my-3 text-light">No hay publicaciones para mostrar.</h2>
         <Link className="btn btn-info btn-sm" to={"/crear-post"}>crea una publicacion</Link>
         </>
         

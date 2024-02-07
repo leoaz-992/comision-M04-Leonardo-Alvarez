@@ -11,17 +11,17 @@ function NavbarComponent() {
   return (
     <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand className='textTitle' href="/">mis viajes App</Navbar.Brand>
-        {isAuthenticated?(
+      <Navbar.Brand className='textTitle' as={Link} to="/">mis viajes App</Navbar.Brand>
+        {isAuthenticated&&(
         <strong className='text-secondary ms-2'>Bienvenido {user.username}</strong>
-      ):("")}
-        <Navbar.Toggle aria-controls="navbarScroll" />
+      )}
+      <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse className="justify-content-end" id="navbarScroll">
           <Nav
             className="ml-auto my-2 my-lg-0 mx-2"
             navbarScroll
           >
-            <Nav.Link href="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
             {isAuthenticated ? (
               <>
               <Nav.Link href="/perfil">perfil</Nav.Link>
@@ -32,14 +32,15 @@ function NavbarComponent() {
                </>
 
             ):(<>
-              <Nav.Link href="/login">Iniciar sesion</Nav.Link>
-            <Nav.Link href="/registrarse">Registrarse</Nav.Link></>
+                <Nav.Link as={Link} to="/login">Iniciar sesion</Nav.Link>
+                <Nav.Link as={Link} to="/registrarse">Registrarse</Nav.Link>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
+  )
 }
 
 export default NavbarComponent;
