@@ -6,6 +6,7 @@ const createAccessToken = require("../config/jwt.js");
 const AutenticacionController = {};
 
 const TOKEN_SECRET_KEY = process.env.JWT_SECRET_KEY;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 AutenticacionController.registrarUsuario = async (req, res) => {
   try {
@@ -39,6 +40,7 @@ AutenticacionController.registrarUsuario = async (req, res) => {
     });
     //crea una coockie y guarda el token
     res.cookie("token", token, {
+      domain: FRONTEND_URL,
       maxAge: 18000000,
       hostOnly: true,
       httpOnly: true,
@@ -84,6 +86,7 @@ AutenticacionController.loginUsuario = async (req, res) => {
     });
     //crea un coockie con el token
     res.cookie("token", token, {
+      domain: FRONTEND_URL,
       maxAge: 18000000,
       httpOnly: true,
       secure: true,
