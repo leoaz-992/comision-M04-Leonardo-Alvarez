@@ -40,6 +40,7 @@ AutenticacionController.registrarUsuario = async (req, res) => {
     //crea una coockie y guarda el token
     res.cookie("token", token, {
       maxAge: 18000000,
+      hostOnly: true,
       httpOnly: true,
       secure: true,
       sameSite: "lax",

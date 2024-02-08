@@ -12,7 +12,7 @@ const commentRoutes = require("./routes/commentRoutes.js");
 
 const app = express();
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 // Middleware
 app.set("etag", false);
@@ -20,10 +20,10 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
-  cors(/* {
+  cors( {
     credentials: true,
     origin: FRONTEND_URL,
-  } */)
+  })
 );
 
 // Rutas
