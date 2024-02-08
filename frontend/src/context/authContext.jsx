@@ -8,7 +8,8 @@ const AuthContext = createContext();
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth debe usarse dentro de un AuthProvider");
+  if (!context)
+    throw new Error("useAuth debe usarse dentro de un AuthProvider");
   return context;
 };
 
@@ -70,13 +71,11 @@ export const AuthProvider = ({ children }) => {
       }
       try {
         const res = await verifyTokenRequest(cookies.token);
-        console.log(res.data);
         if (!res.data) return setIsAuthenticated(false);
         setIsAuthenticated(true);
         setUser(res.data);
         setLoading(false);
       } catch (error) {
-        console.log(error)
         setIsAuthenticated(false);
         setLoading(false);
       }
