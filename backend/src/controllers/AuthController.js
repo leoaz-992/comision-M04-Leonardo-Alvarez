@@ -38,11 +38,17 @@ AutenticacionController.registrarUsuario = async (req, res) => {
       username: userSaved.userName,
     });
     //crea una coockie y guarda el token
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      maxAge: 18000000,
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+    });
     res.json({
       id: userSaved._id,
       username: userSaved.username,
       email: userSaved.email,
+      avatarUser: userSaved.avatarURL,
       message: "usuario registrado correctamente.",
     });
   } catch (error) {
@@ -76,12 +82,18 @@ AutenticacionController.loginUsuario = async (req, res) => {
       username: userFound.userName,
     });
     //crea un coockie con el token
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      maxAge: 18000000,
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+    });
 
     res.json({
       id: userFound._id,
       username: userFound.userName,
       email: userFound.email,
+      avatarUser: userFound.avatarURL,
       message: "usuario logueado exitosamente.",
     });
   } catch (error) {
