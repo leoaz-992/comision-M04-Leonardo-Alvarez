@@ -40,7 +40,7 @@ AutenticacionController.registrarUsuario = async (req, res) => {
     });
     //crea una coockie y guarda el token
     res.cookie("token", token, {
-      domain: FRONTEND_URL,
+      domain: process.env.BACKEND_URL,
       maxAge: 18000000,
       hostOnly: true,
       httpOnly: true,
@@ -86,7 +86,7 @@ AutenticacionController.loginUsuario = async (req, res) => {
     });
     //crea un coockie con el token
     res.cookie("token", token, {
-      domain: FRONTEND_URL,
+      domain: process.env.BACKEND_URL,
       maxAge: 18000000,
       httpOnly: true,
       secure: true,
