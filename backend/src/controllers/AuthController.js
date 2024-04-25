@@ -44,7 +44,6 @@ AutenticacionController.registrarUsuario = async (req, res) => {
       hostOnly: true,
       httpOnly: true,
       secure: true,
-      sameSite: "Lax",
     });
     res.json({
       id: userSaved._id,
@@ -88,7 +87,6 @@ AutenticacionController.loginUsuario = async (req, res) => {
       maxAge: 18000000,
       httpOnly: true,
       secure: true,
-      sameSite: "Lax",
     });
 
     res.json({
