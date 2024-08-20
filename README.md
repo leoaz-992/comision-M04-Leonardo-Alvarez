@@ -2,7 +2,7 @@
 
 ## Descripción 
 
-Plataforma interactiva que permite a los usuarios crear cuentas, subir publicaciones con imágenes y participar en conversaciones al comentar las publicaciones de otros usuarios.Además, los usuarios tienen un perfil personal donde pueden ver sus propias publicaciones y los comentarios que han hecho en la plataforma
+Plataforma interactiva que permite a los usuarios crear cuentas, subir publicaciones con imágenes y participar en conversaciones al comentar las publicaciones de otros usuarios. Además, los usuarios tienen un perfil personal donde pueden ver sus propias publicaciones y los comentarios que han hecho en la plataforma.
 
 Visita el sitio desplegado [viajapp](https://viajaapp-front.onrender.com/) :airplane:
 
